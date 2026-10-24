@@ -8,6 +8,45 @@ from worktree lane isolation, because other sessions need to read it *now*,
 not at merge time. Row flips (born / paused / resumed / done) are atomic
 one-line commits in the main checkout, in the same sitting as the transition.
 
+## Live on chain — what the record actually shows
+
+- **V1 HAS SETTLED REAL SESSIONS ON BASE SEPOLIA.** Read off the chain
+  2026-09-09, not off any doc in this repo, because every doc here said P7 was
+  pending and every doc here was wrong. `Channel` at
+  `0xF41A685C7e260397Be07cC75008D29A7457481f6`, blocks 45,398,285–45,442,868:
+  **10 sessions opened, 8 reached Active with both sides deposited, 2 settled
+  via `ClosedCooperative`**, 1 cancelled before join (guest `0x…dead`, a solo
+  test). Three distinct real addresses plus the burn address. The two settled
+  sessions ran `0x99507e2c…` ↔ `0xf9e7aba8…` at a 100 gwei buy-in.
+  **So "two parties have settled real sessions on a real chain" is TRUE and
+  citable.**
+- **THE DISPUTE PATH HAS NEVER RUN ON CHAIN, and this is the one to be precise
+  about.** Zero `ClaimedByDefault`, zero `Refuted`, zero `Resolved` in the
+  entire history — everything settled through the cooperative path, both
+  parties agreeing and signing. The bonded liveness challenge, which is the
+  actual novel contribution, exists only in the 26 tests. An auditor will ask
+  about exactly this, and the five-ending sweep in the operator runbook is what
+  was designed to close it.
+- Consequence for the arc rows below: their "P7 pending" framing is about V2's
+  deploy. It is accurate for V2 and misleading if read as "V1 has never run".
+
+## Blocking
+
+- **ChannelV2 exceeds EIP-170 and cannot deploy to Base Sepolia** — found
+  2026-09-09 while building the Stage-1 smoke harness, which could not deploy
+  to a stock anvil. Runtime bytecode measured at every setting Foundry offers:
+  default 63,661 B · `--optimize` runs=200 40,447 B · runs=1 39,773 B ·
+  runs=1 + `--via-ir` **34,061 B** — against a limit of **24,576 B**. A stock
+  anvil rejects the best build with `CreateContractSizeLimit`; the same build
+  deploys the instant `--disable-code-size-limit` is passed, which is the proof
+  it is the limit and nothing else. **The 144-test suite never caught this
+  because Foundry's test runner does not enforce the limit** — the contract is
+  fully verified and undeployable at the same time. This blocks runbook Stage 2
+  outright: no deploy, so no live sweep, so no P7. The fix is structural
+  (external libraries via delegatecall, or splitting the contract) and needs a
+  decision before any Base Sepolia gas is spent. →
+  [smoke harness](test/smoke/smoke.mjs) carries the measurements in comments.
+
 ## Ongoing arcs
 
 - **V2 cash settlement** — **BUILDING: P1–P6 built; P5/P6 automated floors

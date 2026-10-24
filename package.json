@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "smoke": "node test/smoke/smoke.mjs"
   },
   "dependencies": {
     "viem": "^2.55.13"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.28.2",
+    "playwright": "1.59.1"
   }
 }

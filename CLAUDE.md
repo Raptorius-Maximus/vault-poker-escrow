@@ -1,12 +1,20 @@
 # Vault
 
-**Status:** Maintenance
+**Status:** Active
 
 A standalone local app that escrows a crypto buy-in for a heads-up poker
 session (played via Loke's separate poker client) and settles it afterwards —
-no third party ever holds the money or decides who won. Two stages: V1
-(winner-takes-all sit-and-go, small) and V2 (cash game, structurally harder,
-not started until V1 runs). V1's design: `docs/superpowers/specs/vault-handover.md`.
+no third party ever holds the money or decides who won.
+
+**Both stages are built.** V1 (winner-takes-all sit-and-go) is small: one
+winner, so vanishing forfeits the buy-in and the penalty is maximal by
+construction. V2 (cash game) is the structurally harder one — no single winner,
+only a stack balance moving every hand — and closes the same hole with signed
+per-hand receipts, signed mid-hand actions and a two-phase evidence/play
+dispute. As of 2026-09-09: 144 contract tests green, 85 of them `ChannelV2`,
+which is 2,256 of the 3,474 lines of contract source. **What remains is P7** —
+deploy, operator smokes, a two-human live sweep — held for the operator, plus
+the AF-45 flake. V1's design: `docs/superpowers/specs/vault-handover.md`.
 V2's: `docs/superpowers/specs/2026-08-16-v2-cash-settlement-consolidated.md`.
 
 ## Working agreement
@@ -27,6 +35,11 @@ V2's: `docs/superpowers/specs/2026-08-16-v2-cash-settlement-consolidated.md`.
 - Say plainly, in every report, which parts were actually run (tests,
   builds) versus which parts cannot be executed in this sandbox (real RPC,
   real wallet, real deployment) — never blur the two.
+- **HANDOVER.md and the commit log outrank the top-level docs on current
+  state.** README, VISION, OVERVIEW and this file describe intent and drift
+  behind the work; HANDOVER is flipped per arc. Added 2026-09-09 after a
+  session read top-down, believed "V2 not started until V1 runs" a month after
+  V2 was built, and put it in a grant document. Check state before citing it.
 
 ## Documentation index
 
@@ -51,14 +64,15 @@ V2's: `docs/superpowers/specs/2026-08-16-v2-cash-settlement-consolidated.md`.
 
 No nested documentation scopes yet.
 
-<!-- ## Excluded paths
-     Optional. Project-specific artifact-shaped folders that the orphan walk
-     should skip. Unions with the canonical exclusion list.
+## Excluded paths
+
+<!-- Project-specific artifact-shaped folders the orphan walk should skip.
+     Unions with the canonical exclusion list. -->
 
 | Path | Reason |
 |---|---|
-| `fixtures/generated/` | Tool-regenerable from the schema. |
--->
+| `contracts/README.md` | Foundry's scaffold template, not authored here. |
+| `contracts/lib/` | Vendored dependencies (forge-std). |
 
 <!-- CEILING: 150 lines, target under 100. If this file is growing, the cause
      is almost always a missing Layer 2 doc (DEVELOPMENT / DEPLOYMENT / SCHEMA
