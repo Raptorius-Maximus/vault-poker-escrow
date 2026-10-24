@@ -27,14 +27,14 @@ to pay up. Vault removes both:
 - **Rage-quitting can't save you.** Disconnecting while behind costs exactly
   what folding costs. See [The disconnect problem](#the-disconnect-problem).
 
-> **Play it:** Vault plugs into **[RaptoR's Poker Room](https://poker.slipgate.me)**,
+> **Play it:** Vault plugs into **[RaptoR's Poker Room at vibegto.com](https://vibegto.com)**,
 > a free poker site with heads-up play and provably fair cards. It runs on a
 > test network with play money. New to crypto wallets? The
-> **[step-by-step player guide](https://buyin.slipgate.me/guide.html)** takes
+> **[step-by-step player guide](https://buyin.vibegto.com/guide.html)** takes
 > about ten minutes.
 
 <p align="center">
-  <a href="https://poker.slipgate.me"><img src="docs/img/poker-room.png" alt="RaptoR's Poker Room lobby" width="85%"></a>
+  <a href="https://vibegto.com"><img src="docs/img/poker-room.png" alt="RaptoR's Poker Room lobby" width="85%"></a>
 </p>
 
 ---
