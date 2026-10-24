@@ -149,7 +149,7 @@ that match's buy-in. The full reasoning is in [OVERVIEW.md](OVERVIEW.md).
 
 | Part | State |
 |---|---|
-| **V1: heads-up sit & go** | Live on Base Sepolia (testnet) at [`0xF41A…81f6`](https://sepolia.basescan.org/address/0xF41A685C7e260397Be07cC75008D29A7457481f6). **Has settled real matches on-chain:** 10 sessions opened, 8 fully funded, 2 paid out by cooperative close (readable on the block explorer). The dispute path (countdown, "I'm here", resolve) is covered by the 26 adversarial tests but has not yet run live. |
+| **V1: heads-up sit & go** | Live on Base Sepolia (testnet) at [`0xF41A…81f6`](https://sepolia.basescan.org/address/0xF41A685C7e260397Be07cC75008D29A7457481f6). **Has settled matches on-chain in the author's own testing** (the author playing both seats from separate wallets, not yet two independent players): 10 sessions opened, 8 fully funded, 2 paid out by cooperative close, all readable on the block explorer. The dispute path (countdown, "I'm here", resolve) is covered by the 26 adversarial tests but has not yet run live. |
 | **V2: heads-up cash games** | Built, with per-hand settlement and on-chain evidence for disputes (card reveals, hand evaluation, betting replay). The design went through sixteen independent adversarial reviews. **Not deployable yet:** its compiled size (34 KB at best) is over the network's 24 KB contract limit, so it has to be split into smaller contracts first. Foundry's tests don't enforce that limit, which is why 85 green V2 tests didn't catch it. |
 | **Audit** | Not audited yet. |
 | **Mainnet** | Not deployed. Testnet and play money only. |
