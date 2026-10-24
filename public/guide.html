@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Play with Vault</title>
+<meta name="description" content="Step-by-step: set up a wallet, get free test ETH, and play a heads-up match with the buy-in held by Vault.">
+<style>
+  :root {
+    --bg: #f6efe4; --panel: #fffaf2; --ink: #2a160c; --dim: #6e5440;
+    --gold: #a8742a; --line: #e4d4bc; --accent: #7a2c1a; --warn-bg: #fbe9e1; --warn-ink: #7a2c1a;
+    --code-bg: #efe3d0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #150a05; --panel: #24130a; --ink: #f3e3c3; --dim: #b89a74;
+      --gold: #e8b86a; --line: #3d2414; --accent: #e8b86a; --warn-bg: #3a1a10; --warn-ink: #f5c7a8;
+      --code-bg: #331c0f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #150a05; --panel: #24130a; --ink: #f3e3c3; --dim: #b89a74;
+    --gold: #e8b86a; --line: #3d2414; --accent: #e8b86a; --warn-bg: #3a1a10; --warn-ink: #f5c7a8;
+    --code-bg: #331c0f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 Inter, "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 2.1rem; line-height: 1.15; margin: 0 0 8px; color: var(--gold); }
+  h2 { font-size: 1.35rem; margin: 40px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 22px 0 6px; }
+  p { margin: 8px 0; }
+  a { color: var(--accent); }
+  .lede { color: var(--dim); font-size: 1.05rem; }
+  .tag { display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+         color: var(--warn-ink); background: var(--warn-bg); border-radius: 999px; padding: 3px 12px; margin-bottom: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 6px 20px 14px; margin: 14px 0; }
+  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 10px 0; }
+  ol.steps > li { counter-increment: s; position: relative; padding: 4px 0 12px 46px; }
+  ol.steps > li::before {
+    content: counter(s); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--gold); color: var(--bg); font-weight: 700; display: grid; place-items: center; font-size: .95rem;
+  }
+  .btnlabel { font-weight: 600; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; -webkit-box-decoration-break: clone; box-decoration-break: clone; overflow-wrap: anywhere; }
+  .who { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--dim); }
+  .warn { background: var(--warn-bg); color: var(--warn-ink); border-radius: 12px; padding: 12px 16px; margin: 14px 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .toc a { display: inline-block; text-decoration: none; border: 1px solid var(--line); background: var(--panel);
+           border-radius: 999px; padding: 4px 14px; font-size: .92rem; color: var(--ink); }
+  .cta { display: inline-block; background: var(--gold); color: var(--bg); font-weight: 700; text-decoration: none;
+         border-radius: 10px; padding: 10px 20px; margin: 8px 0; }
+  details { border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; margin: 8px 0; background: var(--panel); }
+  summary { cursor: pointer; font-weight: 600; }
+  footer { margin-top: 48px; color: var(--dim); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <span class="tag">Practice network · play money only</span>
+  <h1>How to play a match with Vault</h1>
+  <p class="lede">Vault holds both players' buy-ins in a public smart contract and pays the winner automatically. Nobody, including this site, holds the money or takes a cut. Setup takes about ten minutes the first time, and about a minute after that.</p>
+  <ul class="toc">
+    <li><a href="#setup">1. One-time setup</a></li>
+    <li><a href="#host">2. Start a match</a></li>
+    <li><a href="#guest">3. Join a match</a></li>
+    <li><a href="#end">4. Get paid</a></li>
+    <li><a href="#gone">If your opponent vanishes</a></li>
+    <li><a href="#help">Troubleshooting</a></li>
+  </ul>
+
+  <h2 id="setup">1. One-time setup (both players)</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><strong>Use a computer.</strong> Vault needs a wallet in your browser. Chrome, Brave, Firefox and Edge all work.</li>
+      <li><strong>Install MetaMask</strong> from <a href="https://metamask.io/download" rel="noopener">metamask.io/download</a>, the official site, and create a new wallet.
+        <div class="warn"><strong>Your recovery phrase is the key to your wallet.</strong> Write it on paper and keep it offline. Never type it into any website, and never send it to anyone, including us. Nobody legitimate will ever ask for it.</div>
+      </li>
+      <li><strong>Get free test ETH.</strong> Matches run on <em>Base Sepolia</em>, a practice network where the coins have no value. In MetaMask, click your account name to copy your address (it starts with <code>0x</code>). Then use one of the free faucets listed on <a href="https://docs.base.org/get-started/get-funds" rel="noopener">Base's official faucet page</a>. Pick "Base Sepolia" and paste your address.
+        <p>You need the buy-in, plus 10% of it in case you ever need the <a href="#gone">safety countdown</a>, plus a tiny amount for network fees.</p>
+      </li>
+      <li><strong>No need to set up the network by hand.</strong> When Vault opens, it offers a <span class="btnlabel">Switch to the practice network</span> button that does it for you.</li>
+    </ol>
+  </div>
+
+  <h2 id="host">2. Start a match (the host)</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>Go to <a href="https://poker.slipgate.me">poker.slipgate.me</a> and tap <span class="btnlabel">Heads-up — play with real stakes</span> near the bottom of the page.</li>
+      <li>Under <strong>Stakes</strong>, choose <span class="btnlabel">Crypto stakes</span> and type the buy-in in ETH, for example <code>0.001</code>. Crypto matches are always <strong>freezeouts</strong>: you play until one player has all the chips.</li>
+      <li>Tap <span class="btnlabel">Create a table</span> and send the invite link (or let your opponent scan the QR code).</li>
+      <li>Wait until you see <strong>"Opponent's wallet received."</strong></li>
+      <li>Tap the <span class="btnlabel">Buyin</span> button at the table. A Vault tab opens. Tap <span class="btnlabel">Connect your wallet to start</span>, then switch to the practice network if asked.</li>
+      <li>Under <strong>Step 1: Set up the match</strong>, tap <span class="btnlabel">Send opponent’s info and deposit my share</span> and approve it in MetaMask.</li>
+    </ol>
+    <p class="who">Changed your mind?</p>
+    <p>Until your opponent deposits, you can tap <span class="btnlabel">Changed your mind? Cancel and get your money back</span>.</p>
+  </div>
+
+  <h2 id="guest">3. Join a match (the opponent)</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>Open the invite link from the host.</li>
+      <li>Under <strong>Your wallet address</strong>, tap <span class="btnlabel">Use my wallet</span> and approve in MetaMask. You can also paste your address instead. This tells the host which wallet to set the match up for.</li>
+      <li>Tap <span class="btnlabel">Buyin</span> at the table, then <span class="btnlabel">Connect your wallet to start</span>.</li>
+      <li>Once the host has deposited, you'll see <strong>Step 2: Put your money in</strong>. Tap <span class="btnlabel">Deposit my share</span> and approve in MetaMask.</li>
+      <li>Tap <span class="btnlabel">Go to the poker table →</span> and play.</li>
+    </ol>
+  </div>
+
+  <h2 id="end">4. When the match ends: get paid</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>The moment one player has all the chips, both poker tables sign the result automatically. You don't need to click anything.</li>
+      <li>The Vault tab comes to the front. Either player taps <span class="btnlabel">Pay the winner</span> and approves in MetaMask.</li>
+      <li>You'll see <strong>"All done — the money has already been sent to the winner."</strong> The winner receives both buy-ins in full. There's no rake.</li>
+    </ol>
+    <p>Want another match? Start a new game at the poker table and tap <span class="btnlabel">Buyin</span> again. Every match gets its own fresh deposit.</p>
+  </div>
+
+  <h2 id="gone">If your opponent vanishes</h2>
+  <div class="card">
+    <p>Closing the tab can't get anyone out of a losing match. If your opponent stops responding:</p>
+    <ol class="steps">
+      <li>In the Vault tab, tap <span class="btnlabel">Start the countdown (opponent isn’t responding)</span>. This puts down a deposit of 10% of the buy-in and starts a 30-minute clock.</li>
+      <li>If they don't answer in time, tap <span class="btnlabel">Finish the claim (only works after the countdown ends)</span>. You get the whole pot plus your 10% back.</li>
+      <li>If they tap <span class="btnlabel">I'm actually here — stop the countdown</span>, your claim was wrong and they keep your 10%. The match then has to be confirmed by both of you within a second countdown, or the original claim wins anyway.</li>
+    </ol>
+    <p><strong>So only use the countdown when your opponent is really gone</strong>, not just thinking about a hand.</p>
+  </div>
+
+  <h2 id="help">Troubleshooting</h2>
+  <details><summary>The Vault tab didn't open</summary><p>Your browser probably blocked the pop-up. Allow pop-ups for poker.slipgate.me, then tap <span class="btnlabel">Buyin</span> again.</p></details>
+  <details><summary>I closed the Vault tab by accident</summary><p>Nothing is lost: the money and the result live on the blockchain, not in the tab. Tap <span class="btnlabel">Buyin</span> at the table to reopen it.</p></details>
+  <details><summary>MetaMask never popped up / "Nothing happened?"</summary><p>Click the MetaMask fox icon in your browser's toolbar. The request is often waiting there. If it's truly stuck, tap <span class="btnlabel">Nothing happened? Give up on this and try again</span>.</p></details>
+  <details><summary>"Your opponent set this up for a different wallet"</summary><p>You're connected with a different MetaMask account than the one you sent to the host. Switch accounts in MetaMask and reload the Vault tab.</p></details>
+  <details><summary>Not enough ETH</summary><p>Get more from a faucet (see <a href="#setup">setup step 3</a>). Remember to keep a little extra for network fees.</p></details>
+
+  <h2 id="disclaimer">Disclaimer</h2>
+  <div class="warn">
+    <p><strong>Vault is experimental software provided as is, with no warranty of any kind, and it has not been audited. You use it entirely at your own risk. The author and contributors are not responsible for any lost funds, failed or stuck transactions, bugs, wallet mistakes, network fees, or any other loss or damage, however it happens.</strong></p>
+    <p>Blockchain transactions can't be reversed. This site runs on a practice network with play money only. Whether playing for real money is legal depends on where you live. Check your local law.</p>
+  </div>
+
+  <p><a class="cta" href="https://poker.slipgate.me">Go to the poker room →</a></p>
+
+  <footer>Vault is open-source software under the MIT license.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Secrets — never committed, ever
+.env
+.env.*
+!.env.example
+
+# Foundry build artifacts
+contracts/cache/
+contracts/out/
+contracts/broadcast/
+
+# Node
+node_modules/
+
+# Vault UI build output — regenerate with `npm run build`
+public/bundle.js
+public/bundle-v2.js
+public/bundle-v2-recover.js
+prototypes/dispute-gas/out/
+prototypes/dispute-gas/cache/

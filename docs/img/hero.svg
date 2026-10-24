@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="Vault: zero-rake, trustless escrow for heads-up poker">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="80%">
+      <stop offset="0" stop-color="#3a1f10"/>
+      <stop offset="1" stop-color="#150a05"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5d48a"/>
+      <stop offset="1" stop-color="#c9933f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="420" fill="url(#bg)"/>
+
+  <!-- chip stack, left -->
+  <g transform="translate(150 215)">
+    <ellipse cx="0" cy="60" rx="78" ry="22" fill="#0b0503" opacity=".55"/>
+    <g fill="#7a2c1a" stroke="#f5d48a" stroke-width="3">
+      <ellipse cx="0" cy="40" rx="70" ry="20"/>
+      <ellipse cx="0" cy="22" rx="70" ry="20"/>
+      <ellipse cx="0" cy="4" rx="70" ry="20"/>
+      <ellipse cx="0" cy="-14" rx="70" ry="20"/>
+    </g>
+    <ellipse cx="0" cy="-14" rx="44" ry="12" fill="none" stroke="#f5d48a" stroke-width="2" stroke-dasharray="8 6"/>
+  </g>
+
+  <!-- lock, right -->
+  <g transform="translate(1130 205)" fill="none" stroke="url(#gold)" stroke-width="10" stroke-linecap="round">
+    <path d="M-40 -10 v-40 a40 40 0 0 1 80 0 v40"/>
+    <rect x="-62" y="-10" width="124" height="96" rx="14" fill="#2a160c"/>
+    <circle cx="0" cy="28" r="10" fill="#f5d48a" stroke="none"/>
+    <path d="M0 36 v20"/>
+  </g>
+
+  <text x="640" y="150" text-anchor="middle" font-family="Bricolage Grotesque, Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="96" font-weight="700" fill="url(#gold)">Vault</text>
+  <text x="640" y="212" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#f3e3c3">Heads-up poker escrow with no middleman</text>
+
+  <g font-family="JetBrains Mono, Consolas, Menlo, monospace" font-size="22" fill="#f3e3c3" text-anchor="middle">
+    <rect x="300" y="262" width="200" height="52" rx="26" fill="#2a160c" stroke="#c9933f" stroke-width="2"/>
+    <text x="400" y="296">0% rake</text>
+    <rect x="530" y="262" width="220" height="52" rx="26" fill="#2a160c" stroke="#c9933f" stroke-width="2"/>
+    <text x="640" y="296">~1¢ to settle</text>
+    <rect x="780" y="262" width="200" height="52" rx="26" fill="#2a160c" stroke="#c9933f" stroke-width="2"/>
+    <text x="880" y="296">no custodian</text>
+  </g>
+
+  <text x="640" y="370" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#b89a74">Quitting is worth exactly what folding is worth. Never less.</text>
+</svg>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Buyin</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; font-family: system-ui, sans-serif; background: #f5f5f5; color: #111;
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+  }
+  #app { width: 100%; max-width: 480px; padding: 16px; box-sizing: border-box; }
+  .testnet-banner {
+    background: #b45309; color: white; text-align: center; padding: 8px;
+    font-weight: 600; width: 100%; box-sizing: border-box;
+  }
+  .steps {
+    display: flex; flex-direction: column; gap: 8px; margin-top: 16px;
+    background: white; border-radius: 12px; padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+  .step { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #999; }
+  .step-num {
+    flex: none; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; background: #eee; color: #999;
+  }
+  .step.done { color: #555; }
+  .step.done .step-num { background: #dcfce7; color: #16a34a; }
+  .step.now { color: #111; font-weight: 600; }
+  .step.now .step-num { background: #16a34a; color: white; }
+  .card {
+    background: white; border-radius: 12px; padding: 20px; margin-top: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12); display: flex; flex-direction: column; gap: 10px;
+    /* Nothing in a card may push past its own edge -- transaction hashes and
+       addresses are single unbreakable "words" long enough to do exactly
+       that if left to the default. */
+    min-width: 0; overflow-wrap: anywhere;
+  }
+  .meta { margin-top: 12px; font-size: 13px; color: #555; display: flex; flex-direction: column; gap: 2px; }
+  .card.warning { background: #fef3c7; border: 1px solid #d97706; color: #92400e; font-weight: 600; }
+  h1 { margin: 0; font-size: 22px; }
+  h2 { margin: 0; font-size: 17px; }
+  .btn {
+    border: none; border-radius: 8px; padding: 12px 16px; font-size: 15px; font-weight: 600;
+    cursor: pointer;
+  }
+  .btn.primary { background: #16a34a; color: white; }
+  .btn.ghost { background: #eee; color: #333; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  input[type="text"] {
+    padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px;
+  }
+  /* Both deposits in — the next thing to do is in the other tab. */
+  .go-play { border-left: 4px solid #16a34a; align-items: stretch; }
+  .blink { animation: blink 1.6s ease-in-out infinite; }
+  @keyframes blink {
+    50% { box-shadow: 0 0 0 6px rgba(22,163,74,0.22); }
+  }
+  /* Reduced motion still gets the emphasis, just held still. */
+  @media (prefers-reduced-motion: reduce) {
+    .blink { animation: none; box-shadow: 0 0 0 4px rgba(22,163,74,0.22); }
+  }
+
+  .error { color: #b91c1c; }
+  .dim { color: #777; font-size: 13px; }
+  hr { border: none; border-top: 1px solid #eee; width: 100%; }
+
+  /* In-flight transaction. The moving parts are the point: a deposit that
+     takes ten seconds with a frozen screen reads as broken, and the natural
+     response to that is reloading or clicking again -- the worst two moves
+     available while money is in flight. */
+  .card.pending { border-left: 4px solid #16a34a; }
+  /* The other player's transfer. Blue, not green: green is "you did this". */
+  .card.peer-pending { border-left: 4px solid #2563eb; }
+  .peer-pending .spinner { border-color: #dbeafe; border-top-color: #2563eb; }
+  /* min-width:0 is what keeps the heading inside the card: a flex item will
+     not shrink below its own min-content by default, so a long heading kept
+     its full width and pushed the dots out past the border. */
+  .pending-line { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; }
+  .pending-line strong { min-width: 0; overflow-wrap: anywhere; }
+  .pending-line .spinner { margin-top: 2px; }
+  .pending .hash { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
+  .spinner {
+    flex: none; width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid #dcfce7; border-top-color: #16a34a;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* Trailing dots that count up. Width is reserved by the widest state so the
+     heading beside them doesn't jitter as they cycle. */
+  .dots::after {
+    content: '...'; display: inline-block; width: 1.4em; text-align: left;
+    animation: dots 1.6s steps(1, end) infinite;
+  }
+  @keyframes dots {
+    0%   { content: '.'; }
+    25%  { content: '..'; }
+    50%  { content: '...'; }
+    75%  { content: '....'; }
+  }
+  /* Someone who has asked the OS for less motion still needs to know this is
+     working, so the text stays and only the movement stops. */
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; }
+    .dots::after { animation: none; content: '...'; }
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./bundle.js"></script>
+</body>
+</html>
